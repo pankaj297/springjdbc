@@ -8,6 +8,7 @@ public class StudentDaoImpl implements StudentDao {
 
 	private JdbcTemplate jdbcTemplate;
 	
+	//Insert
 	@Override
 	public int insert(Student student) {
 		// TODO Auto-generated method stub
@@ -16,6 +17,25 @@ public class StudentDaoImpl implements StudentDao {
         int r = this.jdbcTemplate.update(query,student.getId(),student.getName(),student.getCity());
 		return r;
 	}
+	
+    //Update
+	@Override
+	public int change(Student student) {
+		//Updateing query
+		String query="update student set name=?, city=? where id=?";
+	    int r =	this.jdbcTemplate.update(query, student.getName(), student.getCity(), student.getId());
+		return r;
+	}
+	
+	//Delete
+	@Override
+	public int delete(int studentId) {
+		String query="delete from student where id=?";
+		int r = this.jdbcTemplate.update(query, studentId);
+		return r;
+	}
+
+
 	
 	
    //getter and setter 
@@ -26,9 +46,9 @@ public class StudentDaoImpl implements StudentDao {
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
+
 	
 	
 
-	
      
 }
